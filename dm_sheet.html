@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Data Mining Playbook | Experiments + AI Quiz + Implementer's Mindset</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f0f4fa 0%, #e2e8f0 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 2rem 1.5rem;
+      color: #0a1c2f;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: #0b2b3b;
+      background-image: radial-gradient(circle at 10% 30%, #123e52 0%, #07212e 100%);
+      border-radius: 2rem;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      color: white;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero h1 span {
+      background: #ffb347;
+      padding: 4px 14px;
+      font-size: 0.9rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: #1e2a3a;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+    }
+
+    .main-playbook {
+      flex: 2.5;
+      min-width: 280px;
+    }
+
+    .sidebar {
+      flex: 1.4;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .exp-section {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .exp-section:hover {
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.12);
+    }
+
+    .exp-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-left: 5px solid #2c7da0;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .exp-num {
+      background: #2c7da0;
+      color: white;
+      border-radius: 40px;
+      padding: 0px 12px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      line-height: 1.8rem;
+    }
+
+    .exp-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0f2e3f;
+    }
+
+    .qa-list {
+      margin-top: 0.75rem;
+      padding-left: 1rem;
+    }
+
+    .qa-list li {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .qa-list strong {
+      color: #1f6392;
+    }
+
+    .mindset-chip {
+      background: #eef2ff;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      border-left: 3px solid #ff9800;
+    }
+
+    .implementer-challenge {
+      background: #fef7e0;
+      border-radius: 1.5rem;
+      padding: 1.4rem;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+    }
+
+    .implementer-challenge h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #b45f06;
+    }
+
+    .challenge-text {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin-bottom: 1rem;
+      background: white;
+      padding: 0.8rem;
+      border-radius: 1rem;
+    }
+
+    .quiz-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.4rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .quiz-header {
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px dashed #ddd;
+      padding-bottom: 0.6rem;
+    }
+
+    .api-key-section {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e1;
+    }
+
+    .api-key-section label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .api-input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .api-input-group input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: monospace;
+      min-width: 180px;
+    }
+
+    .api-status {
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+      color: #166534;
+    }
+
+    .prompt-preview {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 0.8rem;
+      font-size: 0.7rem;
+      font-family: monospace;
+      margin-top: 0.8rem;
+      max-height: 150px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .prompt-preview summary {
+      cursor: pointer;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-question {
+      font-weight: 600;
+      margin: 1rem 0 0.7rem 0;
+      font-size: 1rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 1.2rem;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 60px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.1s;
+      cursor: pointer;
+    }
+
+    .quiz-option:hover {
+      background: #eef2ff;
+    }
+
+    button {
+      background: #1e4a6e;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+
+    button:hover:not(:disabled) {
+      background: #0f3b57;
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .quiz-result {
+      margin-top: 1rem;
+      background: #e9f5e9;
+      padding: 0.8rem;
+      border-radius: 1rem;
+      font-weight: 500;
+    }
+
+    .footnote {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #3a5a6e;
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(30,74,110,0.3);
+      border-radius: 50%;
+      border-top-color: #1e4a6e;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 1rem;
+      }
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📊 Data Mining <span>Experiment Playbook</span></h1>
+    <p>⚡ Experiment 1: Data Warehouse & ETL | Exp 3: WEKA | Exp 4: Preprocessing | Exp 5: Apriori | Exp 6: Text Mining</p>
+    <div class="badge-row">
+      <div class="badge">🧠 AI-Powered Quiz (Focused on YOUR Experiments)</div>
+      <div class="badge">🛠️ Implementer's Challenge</div>
+      <div class="badge">📈 Smart Study: System Prompt Optimized</div>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <!-- LEFT: full experiment catalog -->
+    <div class="main-playbook">
+      <!-- Experiment 1 -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-num">EXP 01</div>
+          <div class="exp-title">Data Warehouse & ETL (Apache Hop + MySQL)</div>
+        </div>
+        <ul class="qa-list">
+          <li><strong>📌 Q:</strong> Data warehouse vs operational DB? <strong>A:</strong> DW is subject-oriented, integrated, historical; OLTP is transactional, normalized.</li>
+          <li><strong>🔑 Surrogate key?</strong> Artificial PK (e.g., customer_key) independent of business ID, used for SCD & performance.</li>
+          <li><strong>⚙️ Add Sequence role:</strong> Generates surrogate keys in ETL pipelines.</li>
+          <li><strong>🔄 ETL significance:</strong> Extract → Transform (clean, standardize) → Load into star schema for analytics.</li>
+        </ul>
+        <div class="mindset-chip">🧪 <strong>Implementer twist:</strong> Design a streaming ETL pipeline that processes IoT sensor logs every 5 mins — replace CSV with Kafka source, still using surrogate keys.</div>
+      </div>
+
+      <!-- Experiment 3: WEKA -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-num">EXP 03</div>
+          <div class="exp-title">WEKA for ML / Data Mining Tasks</div>
+        </div>
+        <ul class="qa-list">
+          <li><strong>📚 ML types in WEKA:</strong> Classification (J48, RF, NB), Regression, Clustering (k-Means), Association (Apriori), Ensemble.</li>
+          <li><strong>🎯 Algorithm selection:</strong> Based on problem type (classification), dataset size, interpretability vs accuracy, cross-validation.</li>
+          <li><strong>📊 Evaluation:</strong> Accuracy, F1-score, ROC curves to compare J48 vs Random Forest.</li>
+        </ul>
+        <div class="mindset-chip">🧪 <strong>Implementer mindset:</strong> Export WEKA model as Java code, embed into a real-time medical triage dashboard — predict diabetes risk from live patient vitals.</div>
+      </div>
+
+      <!-- Experiment 4: Data Preprocessing -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-num">EXP 04</div>
+          <div class="exp-title">Data Preprocessing (Cleaning, PCA, Normalization)</div>
+        </div>
+        <ul class="qa-list">
+          <li><strong>📐 Normalization vs Standardization:</strong> Norm scales to [0,1]; Std centers mean=0, std=1 (z-score).</li>
+          <li><strong>📉 PCA:</strong> Dimensionality reduction by projecting variance onto principal components.</li>
+          <li><strong>🔍 IQR method:</strong> Outlier detection using Q1-1.5*IQR and Q3+1.5*IQR.</li>
+        </ul>
+        <div class="mindset-chip">🧪 <strong>Implementer challenge:</strong> Write a Python function that automatically detects columns with outliers (IQR), caps them, and reapplies PCA for a fraud detection pipeline.</div>
+      </div>
+
+      <!-- Experiment 5: Apriori -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-num">EXP 05</div>
+          <div class="exp-title">Apriori Algorithm (Association Rules)</div>
+        </div>
+        <ul class="qa-list">
+          <li><strong>🔄 Why iterative:</strong> Generates (k)-itemsets from (k-1) frequent itemsets until no candidates.</li>
+          <li><strong>📈 Low min support effect:</strong> Huge itemsets, computationally expensive, many trivial rules.</li>
+          <li><strong>🛒 Market Basket Analysis:</strong> Bread → Butter (lift>1) helps cross-selling.</li>
+        </ul>
+        <div class="mindset-chip">🧪 <strong>Implementer twist:</strong> Build a real-time recommendation engine for e‑commerce using Apriori on streaming transaction data (Spark MLlib) — refresh rules hourly.</div>
+      </div>
+
+      <!-- Experiment 6: Text Mining IoT logs -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-num">EXP 06</div>
+          <div class="exp-title">Text Mining + Naïve Bayes (IoT Alerts)</div>
+        </div>
+        <ul class="qa-list">
+          <li><strong>🧠 Naïve Bayes suitability:</strong> High-dim sparse text data, efficient, probabilistic, works with small datasets.</li>
+          <li><strong>📝 TF-IDF purpose:</strong> Weighs term importance — downweights common words, boosts unique discriminators.</li>
+          <li><strong>🚫 No stopword removal:</strong> Noise, overfitting, slower training.</li>
+          <li><strong>⚡ Real-time IoT deployment:</strong> Edge gateway with pre-trained model, classify alerts (fire, fault) and trigger immediate actions.</li>
+        </ul>
+        <div class="mindset-chip">🧪 <strong>Implementer's mindset:</strong> Deploy TF-IDF + Naïve Bayes as a REST API using FastAPI, subscribe to MQTT topics from smart factories, auto-flag critical anomalies.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="sidebar">
+      <!-- API Key Input Card -->
+      <div class="quiz-card" id="apiKeyCard">
+        <div class="quiz-header">🔑 Groq API Key</div>
+        <div class="api-key-section">
+          <label>Enter your Groq API Key to enable AI Quiz:</label>
+          <div class="api-input-group">
+            <input type="password" id="groqApiKeyInput" placeholder="gsk_..." autocomplete="off">
+            <button id="saveApiKeyBtn" style="padding: 8px 16px;">Save</button>
+            <button id="clearApiKeyBtn" style="padding: 8px 16px; background: #6c757d;">Clear</button>
+          </div>
+          <div id="apiStatus" class="api-status">⚠️ No API key set. Quiz will use fallback questions.</div>
+          <div style="font-size: 0.7rem; margin-top: 8px;">🔗 Get your key from <a href="https://console.groq.com/keys" target="_blank" style="color:#1e4a6e;">console.groq.com/keys</a></div>
+          
+          <!-- System Prompt Preview -->
+          <details class="prompt-preview">
+            <summary>📋 View AI System Prompt (Focused on Your Experiments)</summary>
+            <div style="margin-top: 8px; font-size: 0.65rem; line-height: 1.4;">
+              <strong>SYSTEM PROMPT:</strong><br>
+              You are a Data Mining professor testing students on their lab experiments. Generate questions ONLY based on these 6 experiments:<br><br>
+              <strong>EXP 1 - Data Warehouse & ETL:</strong> Apache Hop, ETL pipeline, surrogate keys, star schema, dimension/fact tables, Add Sequence transform, data integration.<br>
+              <strong>EXP 3 - WEKA Tool:</strong> WEKA Explorer, classification (J48, Random Forest, Naïve Bayes), clustering (k-Means), evaluation metrics (accuracy, F1-score).<br>
+              <strong>EXP 4 - Data Preprocessing:</strong> Data cleaning, handling missing values, normalization vs standardization, PCA (Principal Component Analysis), IQR outlier detection.<br>
+              <strong>EXP 5 - Apriori Algorithm:</strong> Association rule mining, support, confidence, lift, iterative candidate generation, market basket analysis.<br>
+              <strong>EXP 6 - Text Mining:</strong> TF-IDF feature extraction, Naïve Bayes classifier, text preprocessing (stopwords, lowercasing), IoT log classification.<br>
+              <strong>BONUS:</strong> Data discretization, data integration from multiple sources.<br><br>
+              Each question must be multiple choice with 4 options and one correct answer. Questions should test conceptual understanding AND practical implementation details from these experiments.
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- AI QUIZ CARD -->
+      <div class="quiz-card" id="quizContainer">
+        <div class="quiz-header">🧠 AI‑Powered Quiz <span style="font-size:0.8rem;">🎯 Based on Your 6 Experiments</span></div>
+        <div id="quizArea">
+          <div style="text-align: center; padding: 1rem; color: #666;">
+            ✨ Enter your Groq API key above, then click "Start AI Quiz"<br>
+            The AI will generate 10 fresh questions focused on YOUR experiments!
+          </div>
+          <button id="startQuizBtn" style="width:100%; margin-top: 10px;">🎯 Start AI Quiz (Experiment-Focused)</button>
+        </div>
+      </div>
+
+      <!-- Smart Study Technique: Implementer's Challenge -->
+      <div class="implementer-challenge" id="challengeBox">
+        <h3>🔧 IMPLEMENTER'S MINDSET <span style="font-size:0.7rem;">⚡ active challenge</span></h3>
+        <div id="challengeText" class="challenge-text">
+          Build a small Python script that performs PCA on any dataset and prints explained variance. 
+          Bonus: integrate with a simple Flask dashboard.
+        </div>
+        <button id="newChallengeBtn" style="background:#b45f06; width:100%;">🔄 Spin new challenge</button>
+        <div style="font-size:0.7rem; margin-top:0.7rem; color:#5f4339;">✔️ Adopt builder mindset: each challenge pushes beyond theory → production code</div>
+      </div>
+
+      <div style="background:#eef2f9; border-radius:1.5rem; padding:1rem;">
+        <div style="font-weight:700;">📌 Study hack: "3‑2‑1 implementer"</div>
+        <p style="font-size:0.85rem; margin-top:6px;">After reading each experiment, spend 3 mins explaining it, 2 mins finding a real dataset, 1 min writing pseudo-code to apply it. Reinforce engineering intuition.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footnote">
+    ⚡ AI Quiz uses a focused system prompt that restricts questions to your 6 Data Mining experiments. Questions cover ETL, WEKA, Preprocessing, Apriori, and Text Mining.
+  </div>
+</div>
+
+<script>
+  // State management
+  let storedApiKey = localStorage.getItem('groq_api_key') || '';
+  let currentQuizState = {
+    active: false,
+    questions: [],
+    currentIndex: 0,
+    userAnswers: [],
+    score: null
+  };
+
+  const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
+
+  // FOCUSED SYSTEM PROMPT - based on your 6 experiments
+  const SYSTEM_PROMPT = `You are a Data Mining professor testing students on their lab experiments. Generate questions ONLY based on these 6 experiments:
+
+EXP 1 - Data Warehouse & ETL (Apache Hop): Topics include ETL pipeline stages (Extract, Transform, Load), surrogate keys, star schema, dimension tables vs fact tables, Add Sequence transform, data integration from CSV to MySQL, purpose of surrogate keys, pipeline creation in Apache Hop.
+
+EXP 3 - WEKA Tool: Topics include WEKA Explorer interface, classification algorithms (J48 Decision Tree, Random Forest, Naïve Bayes), clustering (k-Means), evaluation metrics (accuracy, F1-score, confusion matrix), algorithm selection criteria, data preprocessing filters in WEKA.
+
+EXP 4 - Data Preprocessing: Topics include data cleaning (handling missing values, removing duplicates), normalization (Min-Max scaling) vs standardization (Z-score), PCA (Principal Component Analysis) for dimensionality reduction, IQR (Interquartile Range) method for outlier detection, feature scaling importance.
+
+EXP 5 - Apriori Algorithm: Topics include association rule mining, support (frequency of itemset), confidence (conditional probability), lift (strength of association), iterative candidate generation, market basket analysis, minimum support/confidence thresholds, computational complexity.
+
+EXP 6 - Text Mining: Topics include TF-IDF (Term Frequency-Inverse Document Frequency) calculation, Naïve Bayes classifier for text, text preprocessing (stopword removal, lowercasing, punctuation removal), IoT log message classification, feature extraction from text.
+
+BONUS Topics: Data discretization (converting continuous to categorical), data integration from multiple sources.
+
+Generate 10 multiple-choice questions. Each question must have 4 options and exactly one correct answer (0-indexed). Questions should test both conceptual understanding AND practical implementation details. Return ONLY valid JSON array.`;
+
+  const USER_PROMPT = `Generate exactly 10 multiple-choice questions based strictly on the Data Mining experiments described. Each question should have 4 options and one correct answer (0-indexed). Return JSON array format: [{"question": "...", "options": ["opt1","opt2","opt3","opt4"], "correct": 0}]`;
+
+  // DOM elements
+  const apiKeyInput = document.getElementById('groqApiKeyInput');
+  const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+  const clearApiKeyBtn = document.getElementById('clearApiKeyBtn');
+  const apiStatus = document.getElementById('apiStatus');
+  const startQuizBtn = document.getElementById('startQuizBtn');
+  const quizAreaDiv = document.getElementById('quizArea');
+
+  // Initialize API key display
+  if (storedApiKey) {
+    apiKeyInput.value = '••••••••••••••••••••••••';
+    apiStatus.innerHTML = '✅ API key is set. AI will generate questions focused on your 6 experiments!';
+    apiStatus.style.color = '#166534';
+  } else {
+    apiStatus.innerHTML = '⚠️ No API key set. Quiz will use fallback questions based on experiments.';
+    apiStatus.style.color = '#92400e';
+  }
+
+  // Save API key
+  saveApiKeyBtn.addEventListener('click', () => {
+    let newKey = apiKeyInput.value.trim();
+    if (newKey === '••••••••••••••••••••••••' && storedApiKey) {
+      apiStatus.innerHTML = '✅ API key unchanged.';
+      return;
+    }
+    if (newKey && newKey.startsWith('gsk_')) {
+      localStorage.setItem('groq_api_key', newKey);
+      storedApiKey = newKey;
+      apiKeyInput.value = '••••••••••••••••••••••••';
+      apiStatus.innerHTML = '✅ API key saved! Questions will be generated based on your experiments.';
+      apiStatus.style.color = '#166534';
+    } else if (newKey === '') {
+      localStorage.removeItem('groq_api_key');
+      storedApiKey = '';
+      apiKeyInput.value = '';
+      apiStatus.innerHTML = '⚠️ API key removed. Quiz will use fallback questions.';
+      apiStatus.style.color = '#92400e';
+    } else {
+      apiStatus.innerHTML = '❌ Invalid API key format. Key should start with "gsk_"';
+      apiStatus.style.color = '#dc2626';
+    }
+  });
+
+  // Clear API key
+  clearApiKeyBtn.addEventListener('click', () => {
+    localStorage.removeItem('groq_api_key');
+    storedApiKey = '';
+    apiKeyInput.value = '';
+    apiStatus.innerHTML = '⚠️ API key cleared. Using fallback questions.';
+    apiStatus.style.color = '#92400e';
+  });
+
+  // Generate using Groq with focused prompt
+  async function generateWithGroq() {
+    const response = await fetch(GROQ_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${storedApiKey}`
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user", content: USER_PROMPT }
+        ],
+        temperature: 0.7,
+        max_tokens: 3500
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`API error ${response.status}: ${errorText.substring(0, 100)}`);
+    }
+
+    const data = await response.json();
+    let content = data.choices[0].message.content;
+    
+    // Clean up response - remove markdown code blocks
+    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    // Find JSON array in the response
+    const jsonMatch = content.match(/\[[\s\S]*\]/);
+    if (jsonMatch) {
+      content = jsonMatch[0];
+    }
+    
+    let parsed = JSON.parse(content);
+    
+    if (Array.isArray(parsed) && parsed.length >= 8) {
+      return parsed.slice(0, 10);
+    } else {
+      throw new Error("Invalid response format - not an array");
+    }
+  }
+
+  // Fallback questions based on actual experiments
+  function getFallbackQuestions() {
+    return [
+      { question: "In Apache Hop ETL pipeline, what is the purpose of the 'Add Sequence' transform?", options: ["To sort data alphabetically", "To generate surrogate keys", "To remove duplicate records", "To filter rows based on conditions"], correct: 1 },
+      { question: "Which of the following is a classification algorithm available in WEKA?", options: ["Apriori", "k-Means", "J48 Decision Tree", "FP-Growth"], correct: 2 },
+      { question: "What is the main difference between normalization and standardization in data preprocessing?", options: ["Normalization uses mean/std, standardization uses min-max", "Normalization scales to [0,1], standardization scales to mean=0, std=1", "They are the same thing", "Normalization removes outliers, standardization doesn't"], correct: 1 },
+      { question: "In the Apriori algorithm, what does 'confidence' measure?", options: ["How frequent an itemset appears", "Probability that Y is purchased when X is purchased", "Strength of association beyond chance", "Number of transactions in the dataset"], correct: 1 },
+      { question: "What is the role of TF-IDF in text mining?", options: ["To remove stopwords from text", "To convert text into numerical weights based on term importance", "To classify text into categories", "To generate association rules from text"], correct: 1 },
+      { question: "In a star schema data warehouse, what does the fact table typically contain?", options: ["Descriptive attributes about customers", "Foreign keys to dimensions and numerical measures", "Only surrogate keys", "Normalized data from multiple sources"], correct: 1 },
+      { question: "What is the IQR method used for in data preprocessing?", options: ["Handling missing values", "Feature scaling", "Outlier detection", "Data discretization"], correct: 2 },
+      { question: "Why is Naïve Bayes particularly suitable for text classification tasks?", options: ["It requires large amounts of training data", "It handles high-dimensional sparse data efficiently", "It automatically removes stopwords", "It works only with numerical features"], correct: 1 },
+      { question: "What happens if minimum support is set too low in the Apriori algorithm?", options: ["No association rules are generated", "Only strong rules are found", "Too many frequent itemsets are generated, increasing computation time", "The algorithm terminates immediately"], correct: 2 },
+      { question: "What is PCA primarily used for in data mining?", options: ["Data cleaning", "Dimensionality reduction while preserving variance", "Handling missing values", "Generating association rules"], correct: 1 }
+    ];
+  }
+
+  async function generateQuizQuestions() {
+    if (storedApiKey && storedApiKey.startsWith('gsk_')) {
+      try {
+        return await generateWithGroq();
+      } catch (err) {
+        console.error("Groq API error:", err);
+        apiStatus.innerHTML = `⚠️ API error. Using fallback questions based on experiments.`;
+        apiStatus.style.color = '#dc2626';
+        return getFallbackQuestions();
+      }
+    } else {
+      return getFallbackQuestions();
+    }
+  }
+
+  function renderCurrentQuestion() {
+    if (!currentQuizState.active || currentQuizState.questions.length === 0) return;
+    const qData = currentQuizState.questions[currentQuizState.currentIndex];
+    const currentQNumber = currentQuizState.currentIndex + 1;
+    let html = `<div style="font-weight:bold; margin-bottom:4px;">❓ Question ${currentQNumber} of ${currentQuizState.questions.length}</div>`;
+    html += `<div class="quiz-question">${escapeHtml(qData.question)}</div>`;
+    html += `<div class="quiz-options" id="optionsContainer">`;
+    qData.options.forEach((opt, idx) => {
+      const isChecked = (currentQuizState.userAnswers[currentQuizState.currentIndex] === idx);
+      html += `
+        <label class="quiz-option" style="display:flex; cursor:pointer;">
+          <input type="radio" name="quizOption" value="${idx}" ${isChecked ? 'checked' : ''} style="margin-right:10px;">
+          <span>${escapeHtml(opt)}</span>
+        </label>
+      `;
+    });
+    html += `</div>`;
+    html += `<div style="display:flex; gap:12px; margin-top:12px;">
+              <button id="prevQuizBtn" ${currentQuizState.currentIndex === 0 ? 'disabled' : ''} style="background:#6c757d;">◀ Prev</button>
+              <button id="nextQuizBtn" style="background:#1e4a6e;">${currentQuizState.currentIndex === currentQuizState.questions.length-1 ? 'Submit Quiz' : 'Next ▶'}</button>
+             </div>`;
+    quizAreaDiv.innerHTML = html;
+    
+    const radios = document.querySelectorAll('input[name="quizOption"]');
+    radios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        currentQuizState.userAnswers[currentQuizState.currentIndex] = parseInt(e.target.value);
+      });
+    });
+    
+    document.getElementById('prevQuizBtn')?.addEventListener('click', () => {
+      if (currentQuizState.currentIndex > 0) {
+        currentQuizState.currentIndex--;
+        renderCurrentQuestion();
+      }
+    });
+    
+    document.getElementById('nextQuizBtn')?.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="quizOption"]:checked');
+      if (selected) {
+        currentQuizState.userAnswers[currentQuizState.currentIndex] = parseInt(selected.value);
+      }
+      if (currentQuizState.currentIndex === currentQuizState.questions.length - 1) {
+        finishQuiz();
+      } else {
+        currentQuizState.currentIndex++;
+        renderCurrentQuestion();
+      }
+    });
+  }
+
+  function finishQuiz() {
+    let correctCount = 0;
+    for (let i = 0; i < currentQuizState.questions.length; i++) {
+      const userAns = currentQuizState.userAnswers[i];
+      if (userAns !== undefined && userAns === currentQuizState.questions[i].correct) {
+        correctCount++;
+      }
+    }
+    const total = currentQuizState.questions.length;
+    let resultHtml = `<div class="quiz-result">✅ Quiz completed! Score: ${correctCount} / ${total} (${Math.round(correctCount/total*100)}%)<br>`;
+    resultHtml += `🎯 Questions based on your Data Mining experiments (ETL, WEKA, Preprocessing, Apriori, Text Mining).</div>`;
+    resultHtml += `<button id="restartQuizBtn" style="margin-top:12px; width:100%;">🔄 Start New Quiz</button>`;
+    quizAreaDiv.innerHTML = resultHtml;
+    document.getElementById('restartQuizBtn')?.addEventListener('click', () => {
+      startQuizFlow();
+    });
+    currentQuizState.active = false;
+  }
+
+  async function startQuizFlow() {
+    quizAreaDiv.innerHTML = `<div style="text-align:center; padding:1rem;">
+      <div class="spinner" style="margin: 0 auto 10px;"></div>
+      <div>🤖 Generating 10 questions focused on YOUR experiments...</div>
+      <div style="font-size:0.8rem; margin-top:8px; color:#666;">${storedApiKey ? 'Using Groq AI with experiment-focused prompt' : 'Using fallback question bank'}</div>
+    </div>`;
+    
+    try {
+      const questions = await generateQuizQuestions();
+      if (!questions || questions.length === 0) throw new Error("No questions generated");
+      currentQuizState = {
+        active: true,
+        questions: questions,
+        currentIndex: 0,
+        userAnswers: new Array(questions.length).fill(undefined),
+        score: null
+      };
+      renderCurrentQuestion();
+    } catch (err) {
+      console.error("Quiz generation error:", err);
+      quizAreaDiv.innerHTML = `<div style="color:#dc2626; padding:1rem; text-align:center;">
